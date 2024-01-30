@@ -32,9 +32,7 @@ class Server:
         if self.__indexed_dataset is None:
             dataset = self.dataset()
             truncated_dataset = dataset[:1000]
-            self.__indexed_dataset = {
-                i: dataset[i] for i in range(len(dataset))
-                }
+            self.__indexed_dataset = {i: dataset[i] for i in range(len(dataset))}
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
@@ -52,8 +50,12 @@ class Server:
             index = i
         ans = {
             "index": index,
-            "data": sth,
-            "page_size": page_size,
             "next_index": index + 1,
+            "page_size": page_size,
+            "data": sth,
         }
         return ans
+
+
+if __name__ == "__main__":
+    pass
