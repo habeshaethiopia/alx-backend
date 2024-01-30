@@ -5,7 +5,7 @@ Deletion-resilient hypermedia pagination
 
 import csv
 import math
-from typing import List
+from typing import List, Dict
 
 
 class Server:
@@ -32,8 +32,28 @@ class Server:
         if self.__indexed_dataset is None:
             dataset = self.dataset()
             truncated_dataset = dataset[:1000]
-            self.__indexed_dataset = {i: dataset[i] for i in range(len(dataset))}
+            self.__indexed_dataset = {
+                i: dataset[i] for i in range(len(dataset))
+                }
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        pass
+        """The goal here is that if between
+        two queries, certain rows are removed
+        from the dataset"""
+        data = self.indexed_dataset()
+        assert index < len(data), AssertionError
+        if not index:
+            index = 0
+        sth = []
+        for i in range(index, index + page_size):
+            if i in data:
+                sth.append(data[i])
+            index = i
+        ans = {
+            "index": index,
+            "data": sth,
+            "page_size": page_size,
+            "next_index": index + 1,
+        }
+        return ans
