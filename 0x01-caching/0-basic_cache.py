@@ -1,18 +1,16 @@
 #!/usr/bin/python3
-
-""" Basic Dictionary """
-
-from base_caching import BaseCaching
+"""class BasicCache that inherits from BaseCaching"""
+from base_cache import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """Basic dictionary"""
+    """basic dictionary"""
 
     def put(self, key, item):
-        """Puts item in cache"""
-        if key is not None and item is not None:
+        """Add an item in the cache"""
+        if key and item:
             self.cache_data[key] = item
 
     def get(self, key):
-        """Gets item from cache"""
-        return self.cache_data.get(key, None)
+        """Get an item by key"""
+        return self.cache_data[key] if key in self.cache_data else None
