@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-"""fifo cache"""
+#!/usr/bin/env python3
+"""class FIFOCache that inherits from BaseCaching"""
 from base_cache import BaseCaching
 
 
