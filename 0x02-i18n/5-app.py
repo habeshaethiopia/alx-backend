@@ -1,34 +1,31 @@
 #!/usr/bin/env python3
-"""basic flask app"""
-from flask import Flask, render_template, request, g
-from flask_babel import Babel, request
+"""
+A Basic flask application
+"""
+from typing import Dict, Union
 
-users = {
-    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
-    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
-    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
-    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
-}
+from flask import Flask
+from flask import g, request
+from flask import render_template
+from flask_babel import Babel
 
 
 class Config(object):
-    """Config class"""
+    """
+    Application configuration class
+    """
 
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
+# Instantiate the application object
 app = Flask(__name__)
-babel = Babel(app)
-
 app.config.from_object(Config)
 
-
-@app.route("/")
-def index() -> str:
-    """index page"""
-    return render_template("3-index.html")
+# Wrap the application with Babel
+babel = Babel(app)
 
 
 @babel.localeselector
@@ -42,22 +39,39 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
-def get_user() -> dict | None:
-    """get user"""
-    try:
-        return users[int(request.args.get("login_as"))]
-    except Exception:
-        return None
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
+
+def get_user(id) -> Union[Dict[str, Union[str, None]], None]:
+    """
+    Validate user login details
+    Args:
+        id (str): user id
+    Returns:
+        (Dict): user dictionary if id is valid else None
+    """
+    return users.get(int(id), 0)
 
 
 @app.before_request
 def before_request():
-    """before request"""
-    user = get_user()
-    if user:
-        g.user = user
-    else:
-        g.user = None
+    """
+    Adds valid user to the global session object `g`
+    """
+    setattr(g, "user", get_user(request.args.get("login_as", 0)))
+
+
+@app.route("/", strict_slashes=False)
+def index() -> str:
+    """
+    Renders a basic html template
+    """
+    return render_template("5-index.html")
 
 
 if __name__ == "__main__":
