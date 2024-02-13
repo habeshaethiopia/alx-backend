@@ -37,14 +37,15 @@ def get_locale() -> str:
     Gets locale from request object
     """
     options = [
-        request.args.get('locale', '').strip(),
-        g.user.get('locale', None) if g.user else None,
-        request.accept_languages.best_match(app.config['LANGUAGES']),
-        Config.BABEL_DEFAULT_LOCALE
+        request.args.get("locale", "").strip(),
+        g.user.get("locale", None) if g.user else None,
+        request.accept_languages.best_match(app.config["LANGUAGES"]),
+        Config.BABEL_DEFAULT_LOCALE,
     ]
     for locale in options:
         if locale and locale in Config.LANGUAGES:
             return locale
+
 
 def get_user() -> dict | None:
     """get user"""
@@ -52,6 +53,8 @@ def get_user() -> dict | None:
         return users[int(request.args.get("login_as"))]
     except Exception:
         return None
+
+
 @app.before_request
 def before_request():
     """before request"""
@@ -60,6 +63,7 @@ def before_request():
         g.user = user
     else:
         g.user = None
+
 
 if __name__ == "__main__":
     app.run()

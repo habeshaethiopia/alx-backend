@@ -48,6 +48,8 @@ def get_user() -> dict | None:
         return users[int(request.args.get("login_as"))]
     except Exception:
         return None
+
+
 @app.before_request
 def before_request():
     """before request"""
@@ -56,6 +58,7 @@ def before_request():
         g.user = user
     else:
         g.user = None
+
 
 if __name__ == "__main__":
     app.run()
