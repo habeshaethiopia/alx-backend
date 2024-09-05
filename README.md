@@ -3,11 +3,41 @@
 This repository contains various backend projects and exercises for the ALX program.
 
 ## Project Structure
-
-0x00-pagination/ 0-simple_helper_function.py 1-simple_pagination.py 2-hypermedia_pagination.py 3-hypermedia_del_pagination.py Popular_Baby_Names.csv README.md 
-0x01-caching/ pycache/ 0-basic_cache.py 1-fifo_cache.py 100-lfu_cache.py 2-lifo_cache.py 3-lru_cache.py 4-mru_cache.py base_cache.py README.md 
-0x02-i18n/ 0-app.py 1-app.py 2-app.py 3-app.py 4-app.py 5-app.py 6-app.py 7-app.py app.py babel.cfg env/ messages.pot ... 0x03-queuing_system_in_js/ env/ README.md
-
+```
+0x00-pagination/ 
+    |0-simple_helper_function.py 
+    |1-simple_pagination.py 
+    |2-hypermedia_pagination.py 
+    |3-hypermedia_del_pagination.py 
+    |Popular_Baby_Names.csv 
+    |README.md 
+0x01-caching/ 
+    |pycache/ 
+    |0-basic_cache.py 
+    |1-fifo_cache.py 
+    |100-lfu_cache.py 
+    |2-lifo_cache.py 
+    |3-lru_cache.py 
+    |4-mru_cache.py 
+    |base_cache.py 
+    |README.md 
+0x02-i18n/ 
+    |0-app.py 
+    |1-app.py 
+    |2-app.py 
+    |3-app.py 
+    |4-app.py 
+    |5-app.py 
+    |6-app.py 
+    |7-app.py 
+    |app.py 
+    |babel.cfg 
+    |env/ 
+    |messages.pot ... 
+0x03-queuing_system_in_js/ 
+    env/ 
+    |README.md
+```
 ## Projects
 
 ### 0x00-pagination
